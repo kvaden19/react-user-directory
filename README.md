@@ -1,4 +1,3 @@
-- Design a UserCard around components available in [Random User API](https://randomuser.me/)
 - Write code to do API call and send results to state variable (see Friends app)
 - Write Sort dropdown (one category) and event handling
     - Write component (form? dropdown?)

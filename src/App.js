@@ -1,17 +1,33 @@
-import React from "react";
+import React, { Component } from "react";
 import Jumbotron from "./components/Jumbotron";
-import Directory from "./components/Directory";
+import Wrapper from './components/Wrapper';
+import UserCard from "./components/UserCard";
 import Footer from "./components/Footer";
-// import Wrapper from "./components/Wrapper";
+// import users from "./users.json";
 
-function App() {
-  return (
+class App extends Component {
+
+  // state = { users };
+
+  render() {
+    return (
       <div>
         <Jumbotron />
-        <Directory />
+        <Wrapper>
+          <UserCard
+            first_name={'Kelly'}
+            last_name={'Vaden'}
+            city={'Pittsburgh'}
+            state={'PA'}
+            email={'klvaden@fakemail.com'}
+            image={'https://via.placeholder.com/150'}
+          />
+        </Wrapper>
         <Footer />
       </div>
-  );
+    );
+  }
+
 }
 
 export default App;

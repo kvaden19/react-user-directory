@@ -1,6 +1,8 @@
-- Write code to do API call and send results to state variable (see Friends app)
-- Write Sort dropdown (one category) and event handling
+- Connect API call to UserCard function; write Map to create several UserCards (see Friends app)
+- Write Sort dropdown (Nationality) and event handling
     - Write component (form? dropdown?)
     - Write click event handler to show dropdown
     - Write submit event handler to have UserCards rendered differently
-- Repeat for Filter dropdown
+    - Will have to write your own sorting function
+- Repeat for Filter dropdown (Nationality)
+    - Can call a different API

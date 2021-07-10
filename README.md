@@ -1,4 +1,3 @@
-- Connect API call to UserCard function; write Map to create several UserCards (see Friends app)
 - Write Sort dropdown (Nationality) and event handling
     - Write component (form? dropdown?)
     - Write click event handler to show dropdown
@@ -6,3 +5,4 @@
     - Will have to write your own sorting function
 - Repeat for Filter dropdown (Nationality)
     - Can call a different API
+- Deploy

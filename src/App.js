@@ -1,28 +1,30 @@
 import React, { Component } from "react";
+import API from './utils/API.js';
 import Jumbotron from "./components/Jumbotron";
-import Wrapper from './components/Wrapper';
-import UserCard from "./components/UserCard";
+import UserList from './components/UserList';
 import Footer from "./components/Footer";
-// import users from "./users.json";
 
 class App extends Component {
 
-  // state = { users };
+  state = {
+      nationalitity: '',
+      users: [],
+      error: ""
+  };
+
+  // When the component mounts, get users from the Random User API
+  componentDidMount() {
+    API.getRandomUsers()
+      .then(response => this.setState({ users: response.data.results }))
+      //.then(response => console.log(response.data.results))
+      .catch(err => console.log(err));
+  }
 
   render() {
     return (
       <div>
         <Jumbotron />
-        <Wrapper>
-          <UserCard
-            first_name={'Kelly'}
-            last_name={'Vaden'}
-            city={'Pittsburgh'}
-            state={'PA'}
-            email={'klvaden@fakemail.com'}
-            image={'https://via.placeholder.com/150'}
-          />
-        </Wrapper>
+        <UserList data={ this.state.users } />
         <Footer />
       </div>
     );

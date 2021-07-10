@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const numResults = 3;
-
-axios.get(`https://randomuser.me/api/?results=${numResults}&inc=name,location,email,picture`)
-  .then(function (response) {
-    console.log(response.data.results);
-});
-
-// module.exports
+export default {
+  getRandomUsers: function() {
+    return axios.get('https://randomuser.me/api/?results=10&inc=name,location,email,picture');
+  },
+  getUsersofNat: function(nationality) {
+    return axios.get(`https://randomuser.me/api/?nat=${nationality}&results=10`);
+  }
+};

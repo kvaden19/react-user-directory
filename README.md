@@ -1,5 +1,3 @@
-- Filter by Nationality
-    - Repeat steps above
 - Deploy
 - README
 

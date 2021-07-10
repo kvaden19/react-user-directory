@@ -3,15 +3,14 @@ import API from './utils/API.js';
 import Jumbotron from "./components/Jumbotron";
 import UserList from './components/UserList';
 import Footer from "./components/Footer";
-import './App.css';
 
 class App extends Component {
 
   state = {
-      nationalitity: '',
       users: [],
       error: '',
-      sort: 'none'
+      sort: 'none',
+      filter: ''
   };
 
   // When the component mounts, get users from the Random User API
@@ -69,12 +68,45 @@ class App extends Component {
 
   }
 
+  filterByCountry(filter) {
+    let origUsers = this.state.users;
+    let filteredUsers;
+
+    if (filter == '') {
+      filteredUsers = origUsers;
+      this.setState({ users: filteredUsers });
+    } else {
+      filteredUsers = origUsers.filter(function(u) {
+        return u.location.country === filter;
+      });
+      this.setState({ users: filteredUsers });
+    }
+
+  }
+
+  onInputChange(e) {
+    this.setState({ filter: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.filterByCountry(this.state.filter);
+  }
+
   render() {
     return (
       <div>
         <Jumbotron />
-        <div className='button block w-2/12 m-4 p-2 rounded-md border-black bg-indigo-500 text-white text-center'>
-            <button onClick={ this.sortByCountry.bind(this) }>Sort by Country</button>
+        <div className='container block w-screen overflow-auto flex'>
+          <div className='inline flex-row w-2/12 m-4 p-2 rounded-md border-black bg-indigo-500 text-white text-center'>
+              <button onClick={ this.sortByCountry.bind(this) }>Sort by Country</button>
+          </div>
+          <div className='inline flex-row w-2/12'>
+              <form onSubmit={ this.handleSubmit.bind(this) }>
+                <input type='text' onChange={ this.onInputChange.bind(this) } name='filter' placeholder='Filter by Country'
+                className='w-full m-4 p-2 rounded-md border-black bg-indigo-500 text-white text-center'/>
+              </form>
+          </div>
         </div>
         <UserList data={ this.state.users } />
         <Footer />

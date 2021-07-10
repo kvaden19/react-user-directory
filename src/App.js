@@ -7,7 +7,8 @@ import Footer from "./components/Footer";
 class App extends Component {
 
   state = {
-      users: [],
+      orig_users: [],
+      display_users: [],
       error: '',
       sort: 'none',
       filter: ''
@@ -16,13 +17,13 @@ class App extends Component {
   // When the component mounts, get users from the Random User API
   componentDidMount() {
     API.getRandomUsers()
-      .then(response => this.setState({ users: response.data.results }))
+      .then(response => this.setState({ orig_users: response.data.results, display_users: response.data.results }))
       .catch(err => console.log(err));
   }
 
   // If Sort button gets clicked, set sorted to true
   sortByCountry() {
-    let sortedUsers = this.state.users;
+    let sortedUsers = this.state.display_users;
 
     function compareCountryASC(a,b) {
       const countryA = a.location.country;
@@ -63,23 +64,22 @@ class App extends Component {
     }
 
     this.setState({
-      users: sortedUsers
+      display_users: sortedUsers
     });
 
   }
 
   filterByCountry(filter) {
-    let origUsers = this.state.users;
-    let filteredUsers;
+    let filteredUsers = this.state.display_users;
 
     if (filter == '') {
-      filteredUsers = origUsers;
-      this.setState({ users: filteredUsers });
+      filteredUsers = this.state.orig_users;
+      this.setState({ display_users: filteredUsers });
     } else {
-      filteredUsers = origUsers.filter(function(u) {
+      filteredUsers = filteredUsers.filter(function(u) {
         return u.location.country === filter;
       });
-      this.setState({ users: filteredUsers });
+      this.setState({ display_users: filteredUsers });
     }
 
   }
@@ -108,7 +108,7 @@ class App extends Component {
               </form>
           </div>
         </div>
-        <UserList data={ this.state.users } />
+        <UserList data={ this.state.display_users } />
         <Footer />
       </div>
     );

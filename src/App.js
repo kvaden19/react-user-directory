@@ -3,27 +3,79 @@ import API from './utils/API.js';
 import Jumbotron from "./components/Jumbotron";
 import UserList from './components/UserList';
 import Footer from "./components/Footer";
+import './App.css';
 
 class App extends Component {
 
   state = {
       nationalitity: '',
       users: [],
-      error: ""
+      error: '',
+      sort: 'none'
   };
 
   // When the component mounts, get users from the Random User API
   componentDidMount() {
     API.getRandomUsers()
       .then(response => this.setState({ users: response.data.results }))
-      //.then(response => console.log(response.data.results))
       .catch(err => console.log(err));
+  }
+
+  // If Sort button gets clicked, set sorted to true
+  sortByCountry() {
+    let sortedUsers = this.state.users;
+
+    function compareCountryASC(a,b) {
+      const countryA = a.location.country;
+      const countryB = b.location.country;
+
+      let comparison = 0;
+
+      if (countryA > countryB) {
+          comparison = 1;
+      } else if (countryA < countryB) {
+        comparison = -1;
+      }
+      
+      return comparison;
+    }
+
+    function compareCountryDESC(a,b) {
+      const countryA = a.location.country;
+      const countryB = b.location.country;
+
+      let comparison = 0;
+
+      if (countryA < countryB) {
+          comparison = 1;
+      } else if (countryA > countryB) {
+        comparison = -1;
+      }
+      
+      return comparison;
+    }
+    
+    if (this.state.sort === 'desc') {
+      sortedUsers.sort(compareCountryASC);
+      this.setState({ sort: 'asc' });
+    } else {
+      sortedUsers.sort(compareCountryDESC);
+      this.setState({ sort: 'desc' });
+    }
+
+    this.setState({
+      users: sortedUsers
+    });
+
   }
 
   render() {
     return (
       <div>
         <Jumbotron />
+        <div className='button block w-2/12 m-4 p-2 rounded-md border-black bg-indigo-500 text-white text-center'>
+            <button onClick={ this.sortByCountry.bind(this) }>Sort by Country</button>
+        </div>
         <UserList data={ this.state.users } />
         <Footer />
       </div>

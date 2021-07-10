@@ -1,8 +1,6 @@
-- Write Sort dropdown (Nationality) and event handling
-    - Write component (form? dropdown?)
-    - Write click event handler to show dropdown
-    - Write submit event handler to have UserCards rendered differently
-    - Will have to write your own sorting function
-- Repeat for Filter dropdown (Nationality)
-    - Can call a different API
+- Filter by Nationality
+    - Repeat steps above
 - Deploy
+- README
+
+Estimate: 2
